@@ -179,7 +179,7 @@ global:
   # By default the images uses will be indicated by these
   # variables.  An example might look like:
   #
-  #   pingidentity/pingdataconsole:2212 (December, 2022)
+  #   pingidentity/pingdataconsole:2302 (February, 2023)
   #
   # @param    global.image.repository Default image registry
   # @desc     is not the fully-qualified name of the image
@@ -195,7 +195,7 @@ global:
   # @desc     Example: image.name: pingfederate
   #
   # @param    global.image.tag Default image tag
-  # @default  2212
+  # @default  2302
   #
   # @param    global.image.pullPolicy Default image pull policy
   # @default  IfNotPresent
@@ -204,7 +204,7 @@ global:
     repository: pingidentity
     repositoryFqn:
     name:
-    tag: "2212"
+    tag: "2302"
     pullPolicy: IfNotPresent
 
   ############################################################
@@ -297,6 +297,8 @@ global:
         runAsNonRoot: true
         runAsUser: 9031
         runAsGroup: 0
+        seccompProfile:
+          type: RuntimeDefault
     pingaccess:
       resources:
         limits:
@@ -310,6 +312,8 @@ global:
         runAsNonRoot: true
         runAsUser: 9031
         runAsGroup: 0
+        seccompProfile:
+          type: RuntimeDefault
 
   ############################################################
   # Services
@@ -320,10 +324,15 @@ global:
   #
   # @param    global.services.clusterExternalDNSHostname
   # @desc     Value for the external-dns.alpha.kubernetes.io/hostname annotation
+  # @desc     for the cluster service.
   # @default
   #
   # @param    global.services.clusterServiceName If set, then this name will
   # @desc     be used as the cluster service name (i.e clusterService == true).
+  #
+  # @param    global.services.useLoadBalancerForDataService If true, the data service
+  # @desc     will be created with type: LoadBalancer.
+  # @default  false
   #
   # @param    global.services.serviceName.dataService If true, a ClusterIP service is
   # @desc     created reachable within the cluster. A single IP is provided and the
@@ -359,6 +368,7 @@ global:
   #    clusterService: true
   #  clusterExternalDNSHostname:
   #  clusterServiceName:
+  #  useLoadBalancerForDataService: false
 
 
   ############################################################
@@ -514,10 +524,9 @@ global:
       fsGroup: 0
       runAsUser: 9031
       runAsGroup: 0
-      # allowPrivilegeEscalation: false
-      # capabilities:
-      #   drop:
-      #   - ALL
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
 
   #############################################################
   # Horizontal Pod Autoscaling
@@ -605,7 +614,11 @@ global:
     #
     # See https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     ############################################################
-    securityContext: null
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
     # @param global.container.replicaCount Number of replicas for workload
     # @default 1
     replicaCount: 1
@@ -776,7 +789,7 @@ sidecars: {}
 # sidecars:
 #   logger:
 #     name: log-container
-#     image: pingidentity/pingtoolkit:2212
+#     image: pingidentity/pingtoolkit:2302
 #     volumeMounts:
 #       - mountPath: /tmp/logs/
 #         name: logger
@@ -793,7 +806,7 @@ initContainers: {}
 # initContainers:
 #   init-example:
 #     name: 01-init
-#     image: pingidentity/pingtoolkit:2212
+#     image: pingidentity/pingtoolkit:2302
 #     command: ['sh', '-c', 'echo "InitContainer 1"']
 
 #############################################################
@@ -840,6 +853,10 @@ ldap-sdk-tools:
   name: ldap-sdk-tools
   image:
     name: ldap-sdk-tools
+    repository: pingidentity
+    repositoryFqn:
+    tag: "2302"
+    pullPolicy: IfNotPresent
 
   container:
     command: "tail -f /dev/null"
@@ -1082,6 +1099,21 @@ pingdirectory:
   envs:
     MAKELDIF_USERS: "20000"
 
+  # @param    pingdirectory.services.serviceName.loadBalancerService If true, the
+  # @desc     per-Pod LoadBalancer services enabled with
+  # @desc     pingdirectory.services.loadBalancerServicePerPod will include this port.
+  # @default  false
+  #
+  # @param    pingdirectory.services.loadBalancerServicePerPod
+  # @desc     Set to true to create a separate LoadBalancer service for each individual
+  # @desc     Pod in the PingDirectory StatefulSet.
+  # @default  false
+  #
+  # @param    pingdirectory.services.loadBalancerExternalDNSHostnameSuffix
+  # @desc     Value used for the external-dns.alpha.kubernetes.io/hostname annotation
+  # @desc     for the LoadBalancer services. This value will be used as a suffix for
+  # @desc     the hostname for each individual pod when
+  # @desc     pingdirectory.services.loadBalancerServicePerPod is set to true.
   services:
     ldap:
       servicePort: 389
@@ -1092,12 +1124,18 @@ pingdirectory:
       containerPort: 1636
       dataService: true
       clusterService: true
+      loadBalancerService: true
     https:
       servicePort: 443
       containerPort: 1443
       ingressPort: 443
       dataService: true
+    replication:
+      containerPort: 8989
+      loadBalancerService: true
     clusterServiceName: pingdirectory-cluster
+    loadBalancerServicePerPod: false
+    #loadBalancerExternalDNSHostnameSuffix: .example.com
 
   ingress:
     hosts:
@@ -1614,6 +1652,10 @@ pd-replication-timing:
   name: pd-replication-timing
   image:
     name: pingtoolkit
+    repository: pingidentity
+    repositoryFqn:
+    tag: "2302"
+    pullPolicy: IfNotPresent
 
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -1632,6 +1674,10 @@ pingtoolkit:
   name: pingtoolkit
   image:
     name: pingtoolkit
+    repository: pingidentity
+    repositoryFqn:
+    tag: "2302"
+    pullPolicy: IfNotPresent
 
 #############################################################
 # testFramework
@@ -1733,5 +1779,9 @@ testFramework:
   #########################################################
   pod:
     securityContext:
+      fsGroup: 0
       runAsUser: 9031
       runAsGroup: 0
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
