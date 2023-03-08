@@ -188,21 +188,31 @@ spec:
         {{ else -}}
         {{ include "pinglib.workload.image" $v.image | nindent 8 }}
         {{ end -}}
-        command: ["tail"]
-        args: ["-f", "/dev/null"]
+        command: {{ $v.utilitySidecar.command }}
+        args:
+          {{- toYaml $v.utilitySidecar.args | nindent 8}}
         {{- if $v.utilitySidecar.resources }}
         resources:
           {{ toYaml $v.utilitySidecar.resources | nindent 10 }}
         {{- end }}
         # Volume mounts for /opt/out and /tmp shared between containers
         volumeMounts:
-        - name: out-dir
+        - name: out-dir{{ if eq "none" $v.addReleaseNameToResource }}-{{ $top.Release.Name }}{{ end }}
           mountPath: /opt/out
         - name: temp
           mountPath: /tmp
         {{- if $v.utilitySidecar.volumes }}
           {{ toYaml $v.utilitySidecar.volumes | nindent 8 }}
         {{- end }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "pinglib.addreleasename" (append . "global-env-vars") }}
+            optional: true
+        - configMapRef:
+            name: {{ include "pinglib.addreleasename" (append . "env-vars") }}
+            optional: true
+        - configMapRef:
+            name: {{ include "pinglib.fullname" . }}-env-vars
       {{- end }}
 
       {{/*---------------- Security Context -------------*/}}
