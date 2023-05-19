@@ -1,5 +1,0 @@
-{{- include "pinglib.service-lb" (list . "pingdirectory") -}}
-
-
-{{- define "pingdirectory.service-lb" -}}
-{{- end -}}
