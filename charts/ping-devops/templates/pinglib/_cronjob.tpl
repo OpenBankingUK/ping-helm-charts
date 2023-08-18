@@ -5,7 +5,7 @@
 {{- $podName := print (include "pinglib.addreleasename" (append . $v.name)) "-0" -}}
 {{- $baseArgs := list "exec" "-ti" $podName "--container" "utility-sidecar" "--" -}}
 {{- $args := concat $baseArgs $v.cronjob.args -}}
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   {{ include "pinglib.metadata.labels" .  | nindent 2  }}
