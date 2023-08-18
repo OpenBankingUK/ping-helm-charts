@@ -95,7 +95,7 @@ data:
 ---
 
 # Validate that the cronjob and corresponding RBAC objects are configured correctly
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: sidecar-pingdirectory-cronjob
