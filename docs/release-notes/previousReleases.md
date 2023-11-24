@@ -1,4 +1,21 @@
 # Release Notes
+## Release 0.9.19 (September 6, 2023)
+### Features ###
+  - Updated default global image tag to `2308`.
+
+## Release 0.9.18 (August 28, 2023)
+### Resolved Defects ###
+  - Fixed incorrect yaml formatting when setting `testFramework.rbac.serviceAccountImagePullSecrets`.
+
+## Release 0.9.17 (August 25, 2023)
+### Features ###
+  - Added support for setting `imagePullSecrets` in workloads.
+  - Added support for setting `testFramework.rbac.serviceAccountImagePullSecrets` to add secrets to the testFramework service account.
+
+## Release 0.9.16 (August 2, 2023)
+### Features ###
+  - Updated default global image tag to `2307`.
+
 ## Release 0.9.15 (July 13, 2023)
 ### Features ###
   - Updated default global image tag to `2306`.
