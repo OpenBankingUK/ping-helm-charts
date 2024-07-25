@@ -2,7 +2,7 @@
 {{- $top := index . 0 -}}
 {{- $v := index . 1 }}
 {{- if $v.cronjob.enabled -}}
-{{- $podName := print $top.Release.Name "-" $v.name "-0" -}}
+{{- $podName := print (include "pinglib.addreleasename" (append . $v.name)) "-0" -}}
 {{- $baseArgs := list "exec" "-ti" $podName "--container" "utility-sidecar" "--" -}}
 {{- $args := concat $baseArgs $v.cronjob.args -}}
 {{- if $top.Capabilities.APIVersions.Has "batch/v1" }}
