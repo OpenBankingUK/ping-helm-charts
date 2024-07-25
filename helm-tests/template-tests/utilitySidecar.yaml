@@ -42,9 +42,6 @@ pingdirectory:
       - name: test-cm
         mountPath: /opt/in/script.sh
         subPath: script.sh
-    env:
-      - name: ENV_TEST
-        value: "sidecar1"
 ### SECTION:EXPECTED ###
 # Validate that the sidecar is configured correctly
 apiVersion: apps/v1
@@ -65,9 +62,6 @@ spec:
             - /dev/null
           command:
             - tail
-          env:
-          - name: ENV_TEST
-            value: sidecar1
           resources:
             requests:
               cpu: "0"
