@@ -69,6 +69,8 @@ global:
   #
   # @param    global.ingress.annotations
   # @default  {}
+  #
+  # @param    global.ingress.spec.ingressClassName
   ############################################################
   ingress:
     enabled: false
@@ -76,9 +78,10 @@ global:
     defaultDomain: example.com
     defaultTlsSecret:
     annotations: {}
-      # nginx example
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      # kubernetes.io/ingress.class: "nginx-public"
+#    nginx annotation example with spec classname
+#      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    spec: {}
+#      ingressClassName: nginx-public
 
   ############################################################
   # Internal Certificates
@@ -189,7 +192,7 @@ global:
   # By default the images uses will be indicated by these
   # variables.  An example might look like:
   #
-  #   pingidentity/pingdataconsole:2311 (November, 2023)
+  #   pingidentity/pingdataconsole:2406 (June, 2024)
   #
   # @param    global.image.repository Default image registry
   # @desc     is not the fully-qualified name of the image
@@ -205,7 +208,7 @@ global:
   # @desc     Example: image.name: pingfederate
   #
   # @param    global.image.tag Default image tag
-  # @default  2311
+  # @default  2406
   #
   # @param    global.image.pullPolicy Default image pull policy
   # @default  IfNotPresent
@@ -214,7 +217,7 @@ global:
     repository: pingidentity
     repositoryFqn:
     name:
-    tag: "2311"
+    tag: "2406"
     pullPolicy: IfNotPresent
 
   ############################################################
@@ -755,6 +758,8 @@ global:
   #
   # @param    global.utilitySidecar.resources Set k8s resources yaml for the sidecar spec
   # @default  1 CPU and 2g memory limit, 0 CPU and 128Mi memory request
+  #
+  # @param    global.utilitySidecar.env Environment variables for the sidecar
   utilitySidecar:
     enabled: false
     # CSD and other command line tools can require a lot of resources.
@@ -766,6 +771,10 @@ global:
       requests:
         cpu: "0"
         memory: "128Mi"
+    # Environment variables for the sidecar if needed
+    # env:
+    #   - name: LOG_LEVEL
+    #     value: "INFO"
 
   #############################################################
   # Includes for sidecars, initContainers and volumes
@@ -799,7 +808,7 @@ sidecars: {}
 # sidecars:
 #   logger:
 #     name: log-container
-#     image: pingidentity/pingtoolkit:2311
+#     image: pingidentity/pingtoolkit:2406
 #     volumeMounts:
 #       - mountPath: /tmp/logs/
 #         name: logger
@@ -816,7 +825,7 @@ initContainers: {}
 # initContainers:
 #   init-example:
 #     name: 01-init
-#     image: pingidentity/pingtoolkit:2311
+#     image: pingidentity/pingtoolkit:2406
 #     command: ['sh', '-c', 'echo "InitContainer 1"']
 
 #############################################################
@@ -865,7 +874,7 @@ ldap-sdk-tools:
     name: ldap-sdk-tools
     repository: pingidentity
     repositoryFqn:
-    tag: "2311"
+    tag: "2406"
     pullPolicy: IfNotPresent
 
   container:
@@ -1615,6 +1624,8 @@ pingintelligence:
   name: pingintelligence
   image:
     name: pingintelligence
+    # pingintelligence is not being built as of release 2406
+    tag: "2405"
   volumes:
     - name: dshm
       emptyDir:
@@ -1664,7 +1675,7 @@ pd-replication-timing:
     name: pingtoolkit
     repository: pingidentity
     repositoryFqn:
-    tag: "2311"
+    tag: "2406"
     pullPolicy: IfNotPresent
 
   envs:
@@ -1686,7 +1697,7 @@ pingtoolkit:
     name: pingtoolkit
     repository: pingidentity
     repositoryFqn:
-    tag: "2311"
+    tag: "2406"
     pullPolicy: IfNotPresent
 
 #############################################################
