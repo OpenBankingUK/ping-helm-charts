@@ -268,12 +268,13 @@ spec:
       {{/*--------------------- Volumes (defined in product.workload.volumes) ------------------*/}}
       {{- include "pinglib.workload.volumes" $v | nindent 6 }}
 
-  {{/*----------------- VolumeClameTemplates ------------------*/}}
+  {{/*----------------- VolumeClaimTemplates ------------------*/}}
   {{- if and (eq $v.workload.type "StatefulSet") $v.workload.statefulSet.persistentvolume.enabled }}
   volumeClaimTemplates:
   {{- range $volName, $val := $v.workload.statefulSet.persistentvolume.volumes }}
   - metadata:
       name: {{ $volName }}{{ if eq "none" $v.addReleaseNameToResource }}-{{ $top.Release.Name }}{{ end }}
+      annotations: {{ toYaml $v.annotations | nindent 8 }}
     spec:
       {{ toYaml $val.persistentVolumeClaim | nindent 6 }}
   {{- end }}

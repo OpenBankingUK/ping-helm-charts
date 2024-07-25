@@ -1,4 +1,45 @@
 # Release Notes
+## Release 0.10.5 (June 5, 2024)
+### Features ###
+  - Updated default global image tag to `2405`.
+
+## Release 0.10.4 (May 1, 2024)
+### Features ###
+  - Updated default global image tag to `2404`.
+
+## Release 0.10.3 (March 29, 2024)
+### Features ###
+  - Updated default global image tag to `2403`.
+
+## Release 0.10.2 (March 1, 2024)
+### Features ###
+  - Updated default global image tag to `2402`.
+
+## Release 0.10.1 (February 5, 2024)
+### Bug Fixes ###
+  - Fix templating failure when not specifying `ingress.spec.ingressClassName` with Ingress enabled.
+
+## Release 0.10.0 (January 31, 2024)
+### Features ###
+  - Updated default global image tag to `2401`.
+  - Added support for setting environment variables in utility sidecar pods, with the `utilitySidecar.env` value.
+  - Added support for setting `ingressClassName` in Ingress specs with the `ingress.spec.ingressClassName` value.
+
+### Enhancements ###
+  - Updated generated PVC definitions to include annotations.
+
+## Release 0.9.22 (December 29, 2023)
+### Features ###
+  - Updated default global image tag to `2312`.
+
+## Release 0.9.21 (December 4, 2023)
+### Features ###
+  - Updated default global image tag to `2311`.
+
+### Defects ###
+  - Updated the workload template to avoid setting `replicas` when autoscaling is enabled.
+  - Improved capabilities checks for `apiVersion` field to avoid issues with prerelease Kubernetes versions.
+
 ## Release 0.9.20 (November 2, 2023)
 ### Features ###
   - Updated default global image tag to `2310`.
@@ -178,7 +219,7 @@
 
 ## Release 0.8.5 (Feb 7, 2022)
 ### Features ###
-  - PingCentral now supported. Example values application found [here](../examples/pingcentral/pingcentral.yaml)
+  - PingCentral now supported. Example values application found [here](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingcentral.yaml)
 ### Issues Resolved ###
   - [Issue #119](https://github.com/pingidentity/helm-charts/issues/119) Workload template not honoring false values from values.yaml. Previously, false did not overwrite true in the Ping Identity Helm Chart template. This fix in _merge-util.tpl will resolve multiple cases within the Ping Identity Helm Chart.
     ```
@@ -1040,7 +1081,7 @@
   shouldn't use image name for service name.
 
 * [Issue #114](https://github.com/pingidentity/helm-charts/issues/114) - Revamp vault.hashicorp.secrets value .yaml and support per path secret
-  Detailed documentation on this can be found the [Vault Config](config/vault.md) docs
+  Detailed documentation on this can be found the [Vault Config](../config/vault.md) docs
 
 ## Release 0.5.1
 
@@ -1106,7 +1147,7 @@
     Updated ability to add any hashicorp.vault annotation to the workload.  As part of this effort, the ***existing
     name/values have been deprecated***, however will continue to work for a period of time.
 
-    Updated details can be found in the [Vault Config](config/vault.md) docs.
+    Updated details can be found in the [Vault Config](../config/vault.md) docs.
 
 
 * [Issue #97](https://github.com/pingidentity/helm-charts/issues/97) - Add the ability to add annotations to all resources generated
@@ -1279,7 +1320,7 @@
 
 * Added support for PingAccess clustering between pingaccess-admin and multiple
   pingaccess-engine containers.
-      * See [everything.yaml](examples/everything.yaml) for example of deploying
+      * See [everything.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/everything.yaml) for example of deploying
         a PingAccess cluster using PingFederate/PingDirectory to authenticate
       * It is *required* to either:
           * generate the private cert (see above)
@@ -1389,7 +1430,7 @@
 ## Release 0.3.6
 
 * Cleaning up and making services/ingresses easier to use together.  Incorporating all the ports
-  used in both a service and ingress into the same location of the [services structure](config/service.md).
+  used in both a service and ingress into the same location of the [services structure](../config/service.md).
 
     The example below shows a container/service/ingress and how to specify the ports at each
     level.
