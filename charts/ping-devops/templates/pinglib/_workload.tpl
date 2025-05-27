@@ -6,7 +6,22 @@ apiVersion: apps/v1
 kind: {{ $v.workload.type }}
 metadata:
   {{ include "pinglib.metadata.labels" .  | nindent 2  }}
-  {{ include "pinglib.metadata.annotations" .  | nindent 2  }}
+  {{- if and (eq $v.workload.type "Deployment") $v.workload.deployment.labels }}
+    {{ toYaml $v.workload.deployment.labels | nindent 4}}
+  {{- end }}
+  {{- if and (eq $v.workload.type "StatefulSet") $v.workload.statefulSet.labels }}
+    {{ toYaml $v.workload.statefulSet.labels | nindent 4}}
+  {{- end }}
+  annotations:
+  {{- if $v.annotations }}
+    {{ toYaml $v.annotations | nindent 4 }}
+  {{- end }}
+  {{- if and (eq $v.workload.type "Deployment") $v.workload.deployment.annotations }}
+    {{ toYaml $v.workload.deployment.annotations | nindent 4 }}
+  {{- end }}
+  {{- if and (eq $v.workload.type "StatefulSet") $v.workload.statefulSet.annotations }}
+    {{ toYaml $v.workload.statefulSet.annotations | nindent 4}}
+  {{- end }}
   name: {{ include "pinglib.fullname" . }}
 spec:
   {{- if not $v.clustering.autoscaling.enabled }}
@@ -40,6 +55,9 @@ spec:
     metadata:
       {{ include "pinglib.metadata.labels" .  | nindent 6  }}
         {{ include "pinglib.selector.labels" . | nindent 8 }}
+        {{- if $v.workload.labels }}
+        {{ toYaml $v.workload.labels | nindent 8}}
+        {{- end }}
       annotations:
         {{ include "pinglib.annotations.vault" $v.vault | nindent 8 }}
         {{/* When a serviceaccount is being generated (either globally or for this specific workload) prefer that
@@ -123,9 +141,11 @@ spec:
         {{- with $v.services }}
         ports:
         {{- range $serviceName, $val := . }}
-        {{- if kindIs "map" $val }}
+        {{- if and (kindIs "map" $val) (not (include "pinglib.is_reserved_block_name" $serviceName)) }}
+        {{- if $val.containerPort }}
         - containerPort: {{ $val.containerPort }}
           name: {{ $serviceName }}
+        {{- end }}
         {{- end }}
         {{- end }}
         {{- end }}
@@ -203,6 +223,11 @@ spec:
         command: {{ $v.utilitySidecar.command }}
         args:
           {{- toYaml $v.utilitySidecar.args | nindent 8}}
+        {{/*---------------- Sidecar Security Context -------------*/}}
+        {{/* Note: this will override the Pod-level securityContext if set */}}
+        {{- if $v.utilitySidecar.securityContext }}
+        securityContext: {{ toYaml $v.utilitySidecar.securityContext | nindent 10 }}
+        {{- end }}
         {{- if $v.utilitySidecar.resources }}
         resources:
           {{ toYaml $v.utilitySidecar.resources | nindent 10 }}

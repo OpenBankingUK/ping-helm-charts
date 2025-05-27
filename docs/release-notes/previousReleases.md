@@ -1,4 +1,118 @@
 # Release Notes
+## Release 0.11.6 (April 2, 2025)
+### Features ###
+  - Updated default global image tag to `2503`.
+
+## Release 0.11.5 (March 3, 2025)
+### Features ###
+  - Updated default global image tag to `2502`.
+
+## Release 0.11.4 (February 14, 2025)
+### Features ###
+  - Updated default global image tag to `2501.1`.
+
+## Release 0.11.3 (February 3, 2025)
+### Features ###
+  - Updated default global image tag to `2501`.
+
+### Bug fixes ###
+  - Prevented unexpected service port entries from being created on workloads when setting service labels or annotations. (PDI-2182)
+
+## Release 0.11.2 (January 3, 2024)
+### Features ###
+  - Updated default global image tag to `2412`.
+
+## Release 0.11.1 (December 3, 2024)
+### Features ###
+  - Updated default global image tag to `2411`.
+
+## Release 0.11.0 (November 20, 2024)
+### Features ###
+  - Updated default global image tag to `2410`.
+
+### Enhancements ###
+  - Added supported values for specifying more fine-grained annotations and labels for workloads, workload pod templates, services, HPA, and RBAC objects. Annotations can now be specified for these resources individually, rather than relying on global annotations that apply to all resources. Here is an example showing the new values that can be set for annotations (analagous values are available to control labels):
+```
+global:
+  annotations:
+    globalAnnotation: val
+  
+  workload:
+    annotations:
+      globalWorkloadAnnotation: val
+    statefulSet:
+      annotations:
+        globalSSAnnotation: val
+    deployment:
+      annotations:
+        globalDepAnnotation: val
+  
+  rbac:
+    generateGlobalServiceAccount: true
+    generateGlobalRoleAndRoleBinding: true
+    serviceAccountAnnotations:
+      globalServiceAccountAnnotation: val
+    roleAnnotations:
+      globalRoleAnnotation: val
+    roleBindingAnnotations:
+      globalRoleBindingAnnotation: val
+
+  services:
+    annotations:
+      globalServiceAnnotation: val
+    clusterServiceAnnotations:
+      globalClusterServiceAnnotation: val
+
+pingdirectory:
+  enabled: true
+  annotations:
+    pdAnnotation: val
+  workload:
+    annotations:
+      pdWorkloadAnnotation: val
+    statefulSet:
+      annotations:
+        pdSSAnnotation: val
+  rbac:
+    generateServiceAccount: true
+    generateRoleAndRoleBinding: true
+    role:
+      rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get", "list"]
+    serviceAccountAnnotations:
+      pdServiceAccountAnnotation: val
+    roleAnnotations:
+      pdRoleAnnotation: val
+    roleBindingAnnotations:
+      pdRoleBindingAnnotation: val
+  services:
+    annotations:
+      pdServiceAnnotation: val
+    clusterServiceAnnotations:
+      pdClusterServiceAnnotation: val
+```
+
+### Bug fixes ###
+  - Fixed global annotations not applying for RBAC objects.
+
+## Release 0.10.9 (October 1, 2024)
+### Features ###
+  - Updated default global image tag to `2409`.
+
+## Release 0.10.8 (September 4, 2024)
+### Features ###
+  - Updated default global image tag to `2408`.
+
+## Release 0.10.7 (August 6, 2024)
+### Features ###
+  - Updated default global image tag to `2407`.
+
+## Release 0.10.6 (July 2, 2024)
+### Features ###
+  - Updated default global image tag to `2406`.
+
 ## Release 0.10.5 (June 5, 2024)
 ### Features ###
   - Updated default global image tag to `2405`.

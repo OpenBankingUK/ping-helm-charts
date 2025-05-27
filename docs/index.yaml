@@ -2,6 +2,138 @@ apiVersion: v1
 entries:
   ping-devops:
   - apiVersion: v2
+    appVersion: "2504"
+    created: "2025-05-01T14:06:55.468538-05:00"
+    description: Ping Identity helm charts - May 1, 2025
+    digest: c2120073461ae64c6ef49beb7dda9fd4a356f2f0f11e78b0dcb8861646ab1fbe
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.7/ping-devops-0.11.7.tgz
+    version: 0.11.7
+  - apiVersion: v2
+    appVersion: "2503"
+    created: "2025-04-02T12:08:24.558275-05:00"
+    description: Ping Identity helm charts - April 2, 2025
+    digest: dd8d48920a46e49451454eac8cc0ba23b543daa2f6c9f69d3ed54ba5f3e6edd2
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.6/ping-devops-0.11.6.tgz
+    version: 0.11.6
+  - apiVersion: v2
+    appVersion: "2502"
+    created: "2025-03-03T14:39:25.448285-06:00"
+    description: Ping Identity helm charts - 03/03/2025
+    digest: 06649f82d42cd572888b564b925fc89e195be12e44b34a24409ffebcbc496536
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.5/ping-devops-0.11.5.tgz
+    version: 0.11.5
+  - apiVersion: v2
+    appVersion: "2501.1"
+    created: "2025-02-14T15:12:21.89388-06:00"
+    description: Ping Identity helm charts - 02/14/2025
+    digest: 19a6accf09f6760aa2bfe3c8457676261a976b6c7c221ab72eccc53dec990cf0
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.4/ping-devops-0.11.4.tgz
+    version: 0.11.4
+  - apiVersion: v2
+    appVersion: "2501"
+    created: "2025-02-03T12:10:37.933335-06:00"
+    description: Ping Identity helm charts - 02/03/2025
+    digest: 50f5c46a254866cc6526d4e13c2a5734f18f8e39631a2207618e4723594033c1
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.3/ping-devops-0.11.3.tgz
+    version: 0.11.3
+  - apiVersion: v2
+    appVersion: "2412"
+    created: "2024-12-27T16:07:36.065912-06:00"
+    description: Ping Identity helm charts - 01/03/2024
+    digest: 43f1fcd4c774955e4f3ca22d018bbcfe76992c9a57e4b724c7dd31ed12e0a8d2
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.2/ping-devops-0.11.2.tgz
+    version: 0.11.2
+  - apiVersion: v2
+    appVersion: "2411"
+    created: "2024-12-03T10:34:13.801898-06:00"
+    description: Ping Identity helm charts - 12/03/2024
+    digest: 89a46e94e7e7482ae1d6128b168a58d26286890c5ad2f3e104fa19bfa825d401
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.1/ping-devops-0.11.1.tgz
+    version: 0.11.1
+  - apiVersion: v2
+    appVersion: "2410"
+    created: "2024-11-20T10:18:16.459973-06:00"
+    description: Ping Identity helm charts - 11/20/2024
+    digest: a1d6a317bd2b9d6686be053beb6c9ef5bf1bbb20cba15517250255f185f3a097
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.11.0/ping-devops-0.11.0.tgz
+    version: 0.11.0
+  - apiVersion: v2
+    appVersion: "2409"
+    created: "2024-10-01T11:25:30.861662-05:00"
+    description: Ping Identity helm charts - 10/01/2024
+    digest: fc7af593bb9c0f623d3a3f4408aa946afe141a4be10a7e648a4b5ae98dcc4e4b
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.10.9/ping-devops-0.10.9.tgz
+    version: 0.10.9
+  - apiVersion: v2
+    appVersion: "2408"
+    created: "2024-09-04T09:30:59.499835-05:00"
+    description: Ping Identity helm charts - 09/04/2024
+    digest: 23aa046138ec5e1aa001a8bf4268ce220a6f86619f32fb86eca853e4fe1d7b84
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.10.8/ping-devops-0.10.8.tgz
+    version: 0.10.8
+  - apiVersion: v2
+    appVersion: "2407"
+    created: "2024-08-06T10:42:38.695624-05:00"
+    description: Ping Identity helm charts - 08/06/2024
+    digest: e472a9090df6bdfda61ea650e333afa4bcbc8c027934e18b99b3452e68ac75cb
+    home: https://helm.pingidentity.com/
+    icon: https://helm.pingidentity.com/img/logos/ping.png
+    name: ping-devops
+    type: application
+    urls:
+    - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.10.7/ping-devops-0.10.7.tgz
+    version: 0.10.7
+  - apiVersion: v2
     appVersion: "2406"
     created: "2024-07-03T16:36:48.431734-05:00"
     description: Ping Identity helm charts - 07/02/2024
@@ -1164,4 +1296,4 @@ entries:
     urls:
     - https://github.com/pingidentity/helm-charts/releases/download/ping-devops-0.2.0/ping-devops-0.2.0.tgz
     version: 0.2.0
-generated: "2024-07-03T16:36:48.427231-05:00"
+generated: "2025-05-01T14:06:55.466132-05:00"
