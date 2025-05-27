@@ -1,4 +1,4 @@
 # Release Notes
-## Release 0.11.2 (January 3, 2024)
+## Release 0.11.7 (May 1, 2025)
 ### Features ###
-  - Updated default global image tag to `2412`.
+  - Updated default global image tag to `2504`.

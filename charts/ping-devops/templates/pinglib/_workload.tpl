@@ -141,9 +141,11 @@ spec:
         {{- with $v.services }}
         ports:
         {{- range $serviceName, $val := . }}
-        {{- if kindIs "map" $val }}
+        {{- if and (kindIs "map" $val) (not (include "pinglib.is_reserved_block_name" $serviceName)) }}
+        {{- if $val.containerPort }}
         - containerPort: {{ $val.containerPort }}
           name: {{ $serviceName }}
+        {{- end }}
         {{- end }}
         {{- end }}
         {{- end }}
@@ -221,6 +223,11 @@ spec:
         command: {{ $v.utilitySidecar.command }}
         args:
           {{- toYaml $v.utilitySidecar.args | nindent 8}}
+        {{/*---------------- Sidecar Security Context -------------*/}}
+        {{/* Note: this will override the Pod-level securityContext if set */}}
+        {{- if $v.utilitySidecar.securityContext }}
+        securityContext: {{ toYaml $v.utilitySidecar.securityContext | nindent 10 }}
+        {{- end }}
         {{- if $v.utilitySidecar.resources }}
         resources:
           {{ toYaml $v.utilitySidecar.resources | nindent 10 }}
